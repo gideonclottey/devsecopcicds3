@@ -21,4 +21,4 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} --delete --exclude ".git/*" --exclude ".github/*" --exclude ".md*"
+          aws s3 sync . s3://${{ secrets.S3_BUCKET_NAME }} --delete --exclude ".git/*" --exclude ".github/*" --exclude "README.md" --exclude "LICENSE" --exclude "s3.yml"
