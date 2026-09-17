@@ -93,11 +93,11 @@ These are real limitations of the current setup, not oversights I plan to leave:
   so no static keys exist at all. This is the first thing I want to replace.
 - **The IAM user is broader than it needs to be.** It should be scoped to `s3:PutObject`,
   `s3:DeleteObject` and `s3:ListBucket` on this one bucket.
-- **No HTTPS and no CDN.** CloudFront in front of the bucket, with the bucket itself made private and
-  reached through Origin Access Control, would fix both at once. (The footer text on the site already
-  claims CloudFront is in place. It is not yet.)
-- **No cache invalidation step.** Once CloudFront is added, the workflow needs a
-  `create-invalidation` call or pushes will not be visible to anyone with a warm cache.
+- **No HTTPS and no CDN.** There is no CloudFront distribution in this project: the browser talks to
+  the S3 website endpoint directly. Adding CloudFront, with the bucket itself made private and reached
+  through Origin Access Control, would fix both the HTTPS gap and the lack of caching at once. If I do
+  that, the workflow will also need a `create-invalidation` step, or pushes will not be visible to
+  anyone with a warm cache.
 - **No checks before deploy.** There is nothing stopping a broken HTML file from going straight to
   production. An HTML validator or link check as a gating job is the obvious next addition, and is
   the "sec" and "test" part of DevSecOps that this project has not covered yet.
